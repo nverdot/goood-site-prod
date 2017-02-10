@@ -11,4 +11,4 @@ env:
 before_install:
   - ./deploy-prod-travis.sh
 script:
-  - ./configure && make
+  - 
