@@ -3,7 +3,7 @@ node_js:
   - "6.1"
 branches:
   only:
-  - master
+  - version
 env:
   global:
   - ENCRYPTION_LABEL: "<.... encryption label from previous step ....>"
