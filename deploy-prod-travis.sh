@@ -55,7 +55,7 @@ git add .
 git commit -am "$commitmsg"
 
 echo "########## Chiffrement des données ##########"
-openssl aes-256-cbc -K $encrypted_01cfe8fba927_key -iv $encrypted_01cfe8fba927_iv -in deploy_key_prod.enc -out deploy_key_prod -d
+openssl aes-256-cbc -K $encrypted_1390a2280077_key -iv $encrypted_1390a2280077_iv -in deploy.enc -out deploy -d
 chmod 600 deploy_key_prod
 eval "$(ssh-agent)"
 ssh-add deploy_key_prod
