@@ -1,32 +1,21 @@
-
-echo "########## Déploiement en production ##########"
-echo "##########  Vérification des numéros de version ######"
-versionBeta=$(npm version | grep 'goood:' | sed 's/^.*: //' | tr -d ',' | grep -oP "(?<=').*?(?=')");
-versionProd=$(cat version-production.txt);
-echo "### version beta est : $versionBeta ####"
-echo $versionBeta;
-echo "### version prod est : $versionProd ####"
-echo $versionProd;
+echo "########## Récupération de la version en béta ##########"
+wget http://beta.goood.pro/static/version.txt
+versionBeta= cat version.txt
+echo "version récupérée de la béta : $versionBeta"
+versionProd= cat version-prod.txt
+echo "version actuellement en production : $versionProd"
 if [ "$versionBeta" != "$versionProd" ]
 then
 	echo "#### La version de production ne correspond pas à la version actuellement en béta #####"
 	exit -1
 fi
-echo "Entrez le descriptif des changements et tapez [ENTRÉE]: " 
-commitmsg="auto-commit"
-if [ $TRAVIS_COMMIT_MESSAGE != "" ]
-then
-	$commitmsg = $TRAVIS_COMMIT_MESSAGE
-fi
+echo "#### La version correspond, récupération du tag ###"
+commitmsg="auto-commit prod"
+GITURLBETA=https://github.com/gooodhub/goood-site-dev.git
 GITURL=https://github.com/gooodhub/goood-site-prod.git
-if [ -d "./dist" ]
-then
-	rm -rf dist
-fi
-git clone -b gh-pages --single-branch $GITURL dist
-cd dist
-git checkout gh-pages
-# ls -a | grep -v '^\.$' | grep -v '^\.\.$' | grep -v '^\.git$' | xargs rm -rf
+git clone $GITURLBETA beta
+cd beta
+git checkout tags/$versionBeta
 mv .git ../gitdeploy
 cd ..
 npm install
