@@ -1,8 +1,8 @@
 echo "########## Récupération de la version en béta ##########"
 wget http://beta.goood.pro/static/version.txt
-versionBeta= cat version.txt
+versionBeta=$(cat version.txt);
 echo "version récupérée de la béta : $versionBeta"
-versionProd= cat version-prod.txt
+versionProd=$(cat version-prod.txt);
 echo "version actuellement en production : $versionProd"
 if [ "$versionBeta" != "$versionProd" ]
 then
@@ -13,6 +13,14 @@ echo "#### La version correspond, récupération du tag ###"
 commitmsg="auto-commit prod"
 GITURLBETA=https://github.com/gooodhub/goood-site-dev.git
 GITURL=https://github.com/gooodhub/goood-site-prod.git
+
+echo "### Nettoyage du dossier beta si existant ###"
+if [ -d "./beta" ]
+then
+	rm -rf beta
+fi
+
+echo "### Récupération de la version actuellement en beta ###"
 git clone $GITURLBETA beta
 cd beta
 git checkout tags/$versionBeta
