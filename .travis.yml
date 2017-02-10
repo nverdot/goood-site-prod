@@ -8,5 +8,5 @@ env:
   global:
   - ENCRYPTION_LABEL: "<.... encryption label from previous step ....>"
   - COMMIT_AUTHOR_EMAIL: "cedric.burceaux@gmail.com"
-after_success:
+before_install:
   - deploy-prod-travis.sh
