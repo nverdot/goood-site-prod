@@ -9,4 +9,4 @@ env:
   - ENCRYPTION_LABEL: "<.... encryption label from previous step ....>"
   - COMMIT_AUTHOR_EMAIL: "cedric.burceaux@gmail.com"
 before_install:
-  - deploy-prod-travis.sh
+  - ./deploy-prod-travis.sh
